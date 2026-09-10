@@ -7,549 +7,253 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', 'Noto Sans Marathi', sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; }
-    
-    /* Header Styling */
-    .header-container { background-color: #0d62ba; color: #ffffff; padding: 16px 20px; border-radius: 8px; margin-bottom: 15px; }
-    .main-title { font-size: 22px; font-weight: bold; }
-    .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
-    
-    /* Card Styling */
-    .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 16px; margin-bottom: 15px; }
-    .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
-    
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
-    
-    /* Input & Select Styling Fixes */
-    select, input { 
-      width: 100%; 
-      padding: 10px; 
-      font-size: 15px; 
-      border: 1px solid #cbd5e1; 
-      border-radius: 6px; 
-      outline: none; 
-      background-color: #ffffff !important; 
-      color: #1e293b !important; 
-      -webkit-text-fill-color: #1e293b !important;
-    }
 
-    /* Fix Chrome / Edge Autofill text color glitch */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover, 
-    input:-webkit-autofill:focus, 
-    input:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
-      -webkit-text-fill-color: #1e293b !important;
-    }
+    .header-title-box { text-align: center; margin-bottom: 10px; }
+    .main-title { font-size: 20px; font-weight: bold; color: #0d62ba; }
+    .sub-title { font-size: 16px; font-weight: bold; color: #1e293b; margin-top: 2px; }
 
-    select:focus, input:focus { border-color: #0d62ba; }
-    
-    optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
-    optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
+    .card { background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; padding: 15px; margin-bottom: 15px; }
+    .card-title { color: #0d62ba; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
 
-    /* Dynamic info text */
-    .subject-info-text { font-size: 13px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
+    .form-group { margin-bottom: 12px; }
+    label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #1e293b; }
 
-    /* Student Outer Box (Blue Border) */
-    .student-box { border: 2px solid #0d62ba; border-radius: 8px; padding: 15px; background-color: #ffffff; margin-top: 10px; }
-    .student-no-header { text-align: center; margin-bottom: 15px; }
-    .student-no-title { font-size: 13px; font-weight: bold; color: #0d62ba; }
-    .student-no-val { font-size: 18px; font-weight: bold; color: #1e293b; margin-top: 2px; }
-
-    .blue-label { color: #0d62ba; font-weight: bold; }
-    .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
-
-    /* Button Styling */
-    .btn-add {
-      background-color: #27ae60;
-      color: white;
-      padding: 12px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
+    select, input {
       width: 100%;
-      margin-top: 15px;
-      transition: background-color 0.2s;
-    }
-    .btn-add:hover { background-color: #219150; }
-
-    /* Table Styling for Saved Data */
-    .table-container { overflow-x: auto; margin-top: 10px; }
-    .saved-data-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
+      padding: 8px;
       font-size: 14px;
-    }
-    .saved-data-table th, .saved-data-table td {
       border: 1px solid #cbd5e1;
-      padding: 10px;
-      text-align: center;
+      border-radius: 5px;
+      outline: none;
+      background-color: #ffffff !important;
+      color: #1e293b !important;
     }
-    .saved-data-table th {
-      background-color: #0d62ba;
-      color: white;
+
+    /* प्रिंट हेडर लेआउट (तक्त्याच्या वरची शाळा व शिक्षकाची माहिती) */
+    .print-header-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+    .info-row { margin-bottom: 4px; }
+    .info-label { font-weight: bold; color: #0d62ba; }
+
+    .btn-add { background-color: #27ae60; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 10px; }
+    .btn-print { background-color: #0d62ba; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 15px; }
+
+    .table-container { overflow-x: auto; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+    th, td { border: 1px solid #000000; padding: 6px 8px; text-align: left; vertical-align: top; }
+    th { background-color: #ffffff; color: #000000; text-align: center; font-weight: bold; }
+
+    .summary-title { font-size: 14px; font-weight: bold; color: #000000; margin-top: 15px; margin-bottom: 6px; }
+
+    /* प्रिंटसाठी विशेष स्टाईल (इमेजप्रमाणे आऊटपुट मिळण्यासाठी) */
+    @media print {
+      body { background-color: #ffffff; padding: 0; }
+      .no-print { display: none !important; }
+      .card { border: none; padding: 0; margin: 0; }
+      .print-header-grid { background: #fff !important; border: 1px solid #000 !important; font-size: 12px; }
+      table { border: 1px solid #000 !important; font-size: 11px; }
+      th, td { border: 1px solid #000 !important; }
+      .info-label { color: #000 !important; }
+      .main-title { color: #0d62ba !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="header-container">
+  <!-- हेडर शीर्षक -->
+  <div class="header-title-box">
     <div class="main-title">मिशन निपुण बीड</div>
-    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता</div>
   </div>
 
-  <!-- १. शाळा व शिक्षकाची माहिती -->
-  <div class="card">
-    <div class="card-title" style="border-bottom: 2px solid #0d62ba; padding-bottom: 5px;">१. शाळा व शिक्षकाची माहिती</div>
-
-    <div class="form-group" style="margin-top: 12px;">
-      <label>शाळा निवडा *</label>
-      <select id="schoolName">
-        <option value="">-- शाळा निवडा --</option>
-        <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
-        <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
-        <option value="SCH03">जि.प.प्रा.शाळा डाबी</option>
-        <option value="SCH04">जि.प.प्रा.शाळा डाबी तांडा</option>
-        <option value="SCH05">जि.प.प्रा.शाळा वानटाकळी</option>
-        <option value="SCH06">जि.प.प्रा.शाळा वानटाकळी तांडा</option>
-        <option value="SCH07">जि.प.प्रा.शाळा एकबाली तांडा</option>
-        <option value="SCH08">जि.प.प्रा.शाळा दौनापुर तांडा</option>
-        <option value="SCH09">जि.प.प्रा.शाळा दौनापूर</option>
-        <option value="SCH10">जि.प.प्रा.शाळा लिंबूटा तांडा</option>
-        <option value="SCH11">जि.प.प्रा.शाळा बहादूरवाडी</option>
-        <option value="SCH12">संत तुकाराम प्राथमिक विद्यालय नागापूर</option>
-        <option value="SCH13">रमाबाई प्राथमिक शाळा नागापूर</option>
-        <option value="SCH14">बालाघाट विद्यालय दौनापूर</option>
-      </select>
+  <!-- १. शाळा व शिक्षकाची माहिती इनपुट (नो-प्रिंट) -->
+  <div class="card no-print">
+    <div class="card-title">शाळा व शिक्षकाची माहिती</div>
+    <div class="form-group">
+      <label>शाळेचे नाव *</label>
+      <input type="text" id="schoolInput" placeholder="उदा. जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी" oninput="updatePrintHeader()">
     </div>
-
     <div class="form-group">
       <label>वर्गशिक्षक *</label>
-      <select id="teacherSelect">
-        <option value="">-- आधी शाळा निवडा --</option>
-      </select>
+      <input type="text" id="teacherInput" placeholder="उदा. श्रीमती बिटलेवार अश्विनी दिनकरराव" oninput="updatePrintHeader()">
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <div class="form-group" style="flex:1;">
+        <label>दिनांक *</label>
+        <input type="date" id="dateInput" onchange="updatePrintHeader()">
+      </div>
+      <div class="form-group" style="flex:1;">
+        <label>केंद्र *</label>
+        <input type="text" id="centerInput" placeholder="उदा. कन्या नागापूर" oninput="updatePrintHeader()">
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <div class="form-group" style="flex:1;">
+        <label>गट (इयत्ता) *</label>
+        <input type="text" id="groupInput" placeholder="उदा. इयत्ता २ री" oninput="updatePrintHeader()">
+      </div>
+      <div class="form-group" style="flex:1;">
+        <label>तालुका / जिल्हा *</label>
+        <input type="text" id="districtInput" placeholder="उदा. परळी वै. / बीड" oninput="updatePrintHeader()">
+      </div>
     </div>
   </div>
 
-  <!-- २. विद्यार्थी क्षमता नोंदणी -->
-  <div class="card">
-    <div class="card-title">विद्यार्थी क्षमता नोंदणी</div>
-    
-    <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
-      <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट:</label>
-      <select id="evalGroupSelect" style="font-weight: bold;">
-        <option value="class2">इयत्ता २ री</option>
-        <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
-      </select>
+  <!-- २. विद्यार्थी क्षमता नोंदणी इनपुट (नो-प्रिंट) -->
+  <div class="card no-print">
+    <div class="card-title">विद्यार्थी नोंदणी</div>
+    <div class="form-group">
+      <label>विद्यार्थ्याचे नाव</label>
+      <input type="text" id="studentName" placeholder="विद्यार्थ्याचे पूर्ण नाव">
     </div>
-
-    <!-- डायनॅमिक मजकूर -->
-    <div class="subject-info-text" id="subjectInfoText">
-      इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
+    <div class="form-group">
+      <label>इयत्ता</label>
+      <input type="text" id="studentClass" value="इयत्ता दुसरी">
     </div>
+    <div class="form-group">
+      <label>वाचन क्षमता</label>
+      <input type="text" id="readingComp" placeholder="उदा. १. सोपी वाक्ये वाचतो.">
+    </div>
+    <div class="form-group">
+      <label>लेखन क्षमता</label>
+      <input type="text" id="writingComp" placeholder="उदा. ४. श्रुतलेखन करताना सर्व अक्षरे लिहितो.">
+    </div>
+    <div class="form-group">
+      <label>संख्याज्ञान क्षमता</label>
+      <input type="text" id="mathNumComp" placeholder="उदा. ८. १० ते २० पर्यंतच्या वस्तू मोजतो.">
+    </div>
+    <div class="form-group">
+      <label>गणितीय क्रिया क्षमता</label>
+      <input type="text" id="mathOpComp" placeholder="उदा. ६. ० ते ९ पर्यंतच्या संख्यांची बेरीज करतो.">
+    </div>
+    <button type="button" class="btn-add" id="addBtn">+ जतन करा</button>
+  </div>
 
-    <!-- निळ्या बॉर्डरचा बॉक्स -->
-    <div class="student-box">
-      <div class="student-no-header">
-        <div class="student-no-title">क्र.</div>
-        <div class="student-no-val" id="studentNo">1</div>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">विद्यार्थ्याचे नाव</label>
-        <input 
-          type="text" 
-          id="studentName" 
-          placeholder="नाव (फक्त मराठीत)" 
-          autocomplete="off" 
-          onkeyup="validateMarathiInput(this)">
-        <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">इयत्ता</label>
-        <select id="studentClassSelect">
-          <option value="२">इयत्ता २ री</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">वाचन</label>
-        <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">लेखन</label>
-        <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">संख्याज्ञान</label>
-        <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
-      </div>
-
-      <div class="form-group">
-        <label class="blue-label">गणितीय क्रिया</label>
-        <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
-      </div>
-
-      <!-- विद्यार्थी माहिती सेव्ह करून पुढील विद्यार्थी जोडण्याचे बटण -->
-      <button type="button" class="btn-add" id="addStudentBtn">+ जतन करा आणि आणखी विद्यार्थी जोडा</button>
+  <!-- ३. प्रिंटमध्ये दिसणारा शाळा व माहिती हेडर बॉक्स -->
+  <div class="print-header-grid" id="printHeader">
+    <div>
+      <div class="info-row"><span class="info-label">शाळा:</span> <span id="lblSchool">जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी</span></div>
+      <div class="info-row"><span class="info-label">दिनांक:</span> <span id="lblDate">2026-09-02</span></div>
+      <div class="info-row"><span class="info-label">गट:</span> <span id="lblGroup">इयत्ता २ री</span></div>
+    </div>
+    <div>
+      <div class="info-row"><span class="info-label">वर्गशिक्षक:</span> <span id="lblTeacher">श्रीमती बिटलेवार अश्विनी दिनकरराव</span></div>
+      <div class="info-row"><span class="info-label">केंद्र:</span> <span id="lblCenter">कन्या नागापूर</span></div>
+      <div class="info-row"><span class="info-label">तालुका / जिल्हा:</span> <span id="lblDistrict">परळी वै. / बीड</span></div>
     </div>
   </div>
 
-  <!-- ३. जतन केलेल्या विद्यार्थ्यांची यादी (तक्ता) -->
-  <div class="card" id="savedDataCard" style="display: none;">
-    <div class="card-title">नोंदवलेल्या विद्यार्थ्यांची माहिती</div>
-    <div class="table-container">
-      <table class="saved-data-table">
-        <thead>
-          <tr>
-            <th>क्र.</th>
-            <th>नाव</th>
-            <th>इयत्ता</th>
-            <th>वाचन</th>
-            <th>लेखन</th>
-            <th>संख्याज्ञान</th>
-            <th>गणितीय क्रिया</th>
-          </tr>
-        </thead>
-        <tbody id="studentTableBody">
-        </tbody>
-      </table>
-    </div>
+  <!-- ४. विद्यार्थ्यांची नावे व प्राप्त क्षमता तक्ता -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 5%;">क्र.</th>
+          <th style="width: 20%;">नाव</th>
+          <th style="width: 10%;">इयत्ता</th>
+          <th style="width: 20%;">वाचन</th>
+          <th style="width: 20%;">लेखन</th>
+          <th style="width: 12.5%;">संख्याज्ञान</th>
+          <th style="width: 12.5%;">गणितीय क्रिया</th>
+        </tr>
+      </thead>
+      <tbody id="studentTbody">
+      </tbody>
+    </table>
   </div>
+
+  <!-- ५. गोषवारा तक्ता -->
+  <div class="summary-title" id="summaryClassHeader">इयत्ता दुसरी</div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 40%;">विषय</th>
+          <th style="width: 15%;">गट A</th>
+          <th style="width: 15%;">गट B</th>
+          <th style="width: 15%;">गट C</th>
+          <th style="width: 15%;">एकूण</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>वाचन</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">3</td>
+          <td style="text-align:center;">1</td>
+          <td style="text-align:center; font-weight:bold;">6</td>
+        </tr>
+        <tr>
+          <td>लेखन</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center; font-weight:bold;">6</td>
+        </tr>
+        <tr>
+          <td>संख्याज्ञान</td>
+          <td style="text-align:center;">4</td>
+          <td style="text-align:center;">2</td>
+          <td style="text-align:center;">0</td>
+          <td style="text-align:center; font-weight:bold;">6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- प्रिंट बटण -->
+  <button class="btn-print no-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
 
   <script>
-    var currentStudentIndex = 1;
+    var srNo = 1;
 
-    function validateMarathiInput(input) {
-      var marathiError = document.getElementById("marathiError");
-      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
-
-      if (nonMarathiPattern.test(input.value)) {
-        marathiError.style.display = "block";
-        input.value = input.value.replace(nonMarathiPattern, '');
-      } else {
-        marathiError.style.display = "none";
-      }
+    function updatePrintHeader() {
+      document.getElementById('lblSchool').innerText = document.getElementById('schoolInput').value || 'जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी';
+      document.getElementById('lblTeacher').innerText = document.getElementById('teacherInput').value || 'श्रीमती बिटलेवार अश्विनी दिनकरराव';
+      document.getElementById('lblDate').innerText = document.getElementById('dateInput').value || '2026-09-02';
+      document.getElementById('lblCenter').innerText = document.getElementById('centerInput').value || 'कन्या नागापूर';
+      document.getElementById('lblGroup').innerText = document.getElementById('groupInput').value || 'इयत्ता २ री';
+      document.getElementById('lblDistrict').innerText = document.getElementById('districtInput').value || 'परळी वै. / बीड';
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      var teachersData = {
-        "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
-        "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर", "श्रीमती सी एम काजळे", "श्रीमती एस व्ही कराड", "श्री डी एम दराडे", "श्रीमती एस.बी.मात्रे", "श्री बी.डी.पुपुलवाड"],
-        "SCH03": ["श्री.एन.एस.जातकर", "श्री.ए.आर.नेहरकर", "श्री.पी.पी.आंधळे", "श्री.जी.एम.दहिवाडे", "श्री.एम.आर.फड", "श्रीमती एस.आर.गुरले"],
-        "SCH04": ["श्री.एस.जी.फड", "श्रीमती बी.बी.रापतवार"],
-        "SCH05": ["श्री.आर.बी.जोशी", "श्री एस.आय.गड्डापोड", "श्री.एस.जे.मुकडे", "श्री एस.एम.गित्ते", "श्री बी.एम.जाधव", "श्रीमती एस.एन.कल्याणे"],
-        "SCH06": ["श्री.एम.एन.जाधव", "श्री व्ही.एम.गायकवाड"],
-        "SCH07": ["श्री.के.बी.माडजे", "श्रीमती एस.यु.चाटे"],
-        "SCH08": ["श्रीमती एस.के.लाड"],
-        "SCH09": ["श्री.आर.टी.मंत्रे", "श्री एम.डी.कळसकर", "श्री सी.टी.मुंडे", "श्री डी.एम.गाडेकर", "श्री.पी.के.रेवलकर", "श्री एम.ए.आंधळे", "श्रीमती आर.डी.आलझेंडे", "श्रीमती आर.एन.जाधव"],
-        "SCH10": ["श्री.एम.बी.बडगिरे", "श्री.पी.व्ही.काळेवाड"],
-        "SCH11": ["श्रीमती चिद्दरवार ए.डी", "श्रीमती एम.एस.माले"],
-        "SCH12": ["श्री. ए.यु.पांचाळ", "डी.एम.गडदे"],
-        "SCH13": ["श्री वाय पी तोंडारे", "श्रीमती एस एस बनसोडे", "श्री के टी भुसे", "श्री एन.जी. कानडे", "श्रीमती एस.एस.बचुटे", "श्री एस.जी.बनसोडे", "टी.ए.कांबळे"],
-        "SCH14": ["श्रीमती पी टी कपाळे", "श्री आर एस नागरगोजे", "श्री पी.एस उघडे", "श्री बी.डी.दासूद"]
-      };
+    document.getElementById('addBtn').addEventListener('click', function() {
+      var name = document.getElementById('studentName').value.trim();
+      var cls = document.getElementById('studentClass').value;
+      var r = document.getElementById('readingComp').value;
+      var w = document.getElementById('writingComp').value;
+      var n = document.getElementById('mathNumComp').value;
+      var o = document.getElementById('mathOpComp').value;
 
-      var r2 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-11">A - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>' +
-        '<option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="A-13">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
-        '<option value="A-14">A - १४. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह, आरोह अवरोहासह व योग्य गतीने वाचतो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-5">B - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option>' +
-        '<option value="B-6">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-7">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-8">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह वाचतो.</option>' +
-        '<option value="B-9">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-10">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षरयुक्त लहान वाक्ये वाचतो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखत नाही.</option>' +
-        '<option value="C-2">C - २. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी (उच्चार) ओळखतो.</option>' +
-        '<option value="C-3">C - ३. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे दोन अक्षरी शब्द वाचतो.</option>' +
-        '<option value="C-4">C - ४. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे तीन ते चार अक्षरी शब्द वाचतो.</option>' +
-        '</optgroup>';
+      if(!name) { alert("कृपया नाव भरा!"); return; }
 
-      var w2 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-12">A - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
-        '<option value="A-13">A - १३. २-३ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त विरामचिन्हांसह तीन ते चार वाक्ये ऐकून लिहितो.</option>' +
-        '<option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>' +
-        '<option value="A-15">A - १५. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त एक वाक्य विरामचिन्हांसह ऐकून लिहितो.</option>' +
-        '<option value="A-16">A - १६. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त २-३ वाक्ये विरामचिन्हांसह योग्य गतीने लिहितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-6">B - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
-        '<option value="B-7">B - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>' +
-        '<option value="B-8">B - ८. २-३ शब्दांची व सोप्या जोडाक्षरांची एक ते दोन सोपी वाक्ये पाहून लिहितो.</option>' +
-        '<option value="B-9">B - ९. ४-५ सोपे शब्द व सोपी जोडाक्षरे असलेली दोन ते तीन वाक्ये पाहून लिहितो.</option>' +
-        '<option value="B-10">B - १०. २-३ शब्दांची एक ते दोन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
-        '<option value="B-11">B - ११. २-३ शब्द व जोडाक्षरयुक्त एक ते दोन वाक्ये ऐकून विरामचिन्हांसह योग्य गतीने लिहितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. वर्णमालेतील अक्षरे पाहून लिहू शकत नाही.</option>' +
-        '<option value="C-2">C - २. वर्णमालेतील अक्षरे पाहून लिहितो.</option>' +
-        '<option value="C-3">C - ३. सोपे शब्द पाहून लिहितो.</option>' +
-        '<option value="C-4">C - ४. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option>' +
-        '<option value="C-5">C - ५. श्रुतलेखन करताना वर्णमालेतील काही अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
-        '</optgroup>';
+      var row = '<tr>' +
+        '<td style="text-align:center;">' + srNo + '</td>' +
+        '<td>' + name + '</td>' +
+        '<td>' + cls + '</td>' +
+        '<td>' + (r || '-') + '</td>' +
+        '<td>' + (w || '-') + '</td>' +
+        '<td>' + (n || '-') + '</td>' +
+        '<td>' + (o || '-') + '</td>' +
+        '</tr>';
 
-      var n2 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-9">A - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
-        '<option value="A-10">A - १०. १० ते २० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
-        '<option value="A-11">A - ११. १० ते २० पर्यंत संख्या लिहितो. (अंकी)</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-5">B - ५. ० ते ९ पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
-        '<option value="B-6">B - ६. ० ते ९ पर्यंत संख्या लिहितो. (अंकी)</option>' +
-        '<option value="B-7">B - ७. १० ते २० संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="B-8">B - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. ० ते ९ संख्यानामे क्रमाने म्हणता येत नाहीत.</option>' +
-        '<option value="C-2">C - २. ० ते ९ संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="C-3">C - ३. ० ते ९ पर्यंतच्या वस्तू मोजतो.</option>' +
-        '<option value="C-4">C - ४. ९ पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
-        '</optgroup>';
+      document.getElementById('studentTbody').innerHTML += row;
+      srNo++;
 
-      var o2 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-11">A - ११. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
-        '<option value="A-12">A - १२. ० ते ९ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="A-13">A - १३. ० ते ९ पर्यंतच्या संख्यांचा वापर दैनंदिन परिस्थितीमध्ये करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-5">B - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.</option>' +
-        '<option value="B-6">B - ६. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="B-7">B - ७. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="B-8">B - ८. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकीची उदाहरणे सोडवितो.</option>' +
-        '<option value="B-9">B - ९. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="B-10">B - १०. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.</option>' +
-        '<option value="C-2">C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
-        '<option value="C-3">C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="C-4">C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>';
-
-      var r3 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-12">A - १२. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="A-13">A - १३. अपरिचित मजकुरातील ४-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये अचूकपणे, विरामचिन्हांसह आकलनासह वाचतो.</option>' +
-        '<option value="A-14">A - १४. अपरिचित मजकुरातील ६-८ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="A-15">A - १५. अपरिचित मजकुरातील ६-८ सोप्या शब्दांनी व जोडाक्षरासह तयार झालेली लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-6">B - ६. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-7">B - ७. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली व जोडाक्षरासह लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-8">B - ८. परिचित मजकुरातील २-३ सोप्या शब्दांनी व जोडाक्षरासह लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
-        '<option value="B-9">B - ९. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-10">B - १०. परिचित मजकुरातील ३-५ सोप्या शब्दांनी तयार झालेली जोडाक्षर युक्त लहान वाक्ये वाचतो.</option>' +
-        '<option value="B-11">B - ११. परिचित मजकुरातील ३-५ सोप्या शब्दांनी व जोडाक्षरासह लहान वाक्ये अचूकपणे, आकलनासह वाचतो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. वर्णमालेतील काही अक्षरे व संबंधित ध्वनी ओळखत नाही.</option>' +
-        '<option value="C-2">C - २. वर्णमालेतील सर्व अक्षरे व त्याचे ध्वनी ओळखतो.</option>' +
-        '<option value="C-3">C - ३. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे दोन अक्षरी शब्द वाचतो.</option>' +
-        '<option value="C-4">C - ४. सर्व अक्षरे आणि स्वरचिन्हे यांच्या मदतीने तयार होणारे तीन ते चार अक्षरी शब्द वाचतो.</option>' +
-        '<option value="C-5">C - ५. मजकुरातील साध्या विरामचिन्हांची दखल घेतो.</option>' +
-        '</optgroup>';
-
-      var w3 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-14">A - १४. श्रुतलेखनाकरिता ४-५ शब्दांची एक ते दोन सोपी वाक्ये योग्य गतीने लिहितो.</option>' +
-        '<option value="A-15">A - १५. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त एक वाक्य विरामचिन्हांसह व आकलनासह ऐकून लिहितो.</option>' +
-        '<option value="A-16">A - १६. ४-५ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त दोन ते तीन वाक्ये विरामचिन्हांसह ऐकून लिहितो.</option>' +
-        '<option value="A-17">A - १७. ६-८ शब्दांची चार ते पाच सोपी वाक्ये ऐकून लिहितो.</option>' +
-        '<option value="A-18">A - १८. श्रुतलेखनाकरिता ६-८ शब्द व जोडाक्षरे यांनी युक्त ४-५ वाक्ये विरामचिन्हांसह व आकलनासह लिहितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-8">B - ८. २-३ शब्दांची व सोप्या जोडाक्षरांची एक ते दोन सोपी वाक्ये पाहून लिहितो.</option>' +
-        '<option value="B-9">B - ९. ४-५ सोपे शब्द व सोपी जोडाक्षरे असलेली दोन ते तीन वाक्ये आकलनासह पाहून लिहितो.</option>' +
-        '<option value="B-10">B - १०. २-३ शब्दांची एक ते दोन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
-        '<option value="B-11">B - ११. २-३ शब्द व जोडाक्षरयुक्त एक ते दोन वाक्य विरामचिन्हांसह व आकलनासह ऐकून लिहितो.</option>' +
-        '<option value="B-12">B - १२. २-३ सोप्या शब्दांची दोन ते तीन सोपी वाक्ये ऐकून योग्य गतीने लिहितो.</option>' +
-        '<option value="B-13">B - १३. २-३ सोपे शब्द व सोपी जोडाक्षरे यांनी युक्त विरामचिन्हांसह व आकलनासह ३-४ वाक्ये ऐकून लिहितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. वर्णमालेतील अक्षरे पाहून लिहू शकत नाही.</option>' +
-        '<option value="C-2">C - २. वर्णमालेतील अक्षरे पाहून लिहितो.</option>' +
-        '<option value="C-3">C - ३. सोपे शब्द पाहून लिहितो.</option>' +
-        '<option value="C-4">C - ४. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option>' +
-        '<option value="C-5">C - ५. श्रुतलेखन करताना वर्णमालेतील काही अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
-        '<option value="C-6">C - ६. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे व स्वरचिन्हे वापरून शब्द लिहितो.</option>' +
-        '<option value="C-7">C - ७. श्रुतलेखन करताना वर्णमालेतील सर्व अक्षरे, स्वरचिन्हेयुक्त व जोडाक्षरयुक्त शब्द लिहितो.</option>' +
-        '</optgroup>';
-
-      var n3 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-18">A - १८. ० ते ९ संख्यानामे लिहितो. (अक्षरी)</option>' +
-        '<option value="A-19">A - १९. ० ते २० संख्यानामे लिहितो. (अक्षरी)</option>' +
-        '<option value="A-20">A - २०. ० ते ५० संख्यानामे लिहितो. (अक्षरी)</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-10">B - १०. १० ते २० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
-        '<option value="B-11">B - ११. १० ते २० पर्यंत संख्या लिहितो. (अंकी)</option>' +
-        '<option value="B-12">B - १२. २१ ते ५० पर्यंतची संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="B-13">B - १३. स्थानिक किंमत संकल्पना वापरून २१ ते ५० पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
-        '<option value="B-14">B - १४. २१ ते ५० पर्यंतच्या संख्या लिहितो. (अंकी)</option>' +
-        '<option value="B-15">B - १५. ५१ ते ९९ पर्यंतची संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="B-16">B - १६. स्थानिक किंमत संकल्पना वापरून ५१ ते ९९ पर्यंतच्या संख्या ओळखतो.</option>' +
-        '<option value="B-17">B - १७. ५१ ते ९९ पर्यंतच्या संख्या लिहितो. (अंकी)</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. ० ते ९ संख्यानामे क्रमाने म्हणता येत नाहीत.</option>' +
-        '<option value="C-2">C - २. ० ते ९ संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="C-3">C - ३. ० ते ९ पर्यंतच्या वस्तू मोजतो.</option>' +
-        '<option value="C-4">C - ४. ९ पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
-        '<option value="C-5">C - ५. ० ते ९ पर्यंतच्या संख्या ओळखतो/वाचतो.</option>' +
-        '<option value="C-6">C - ६. ० ते ९ पर्यंत संख्या लिहितो. (अंकी)</option>' +
-        '<option value="C-7">C - ७. १० ते २० संख्यानामे क्रमाने म्हणतो.</option>' +
-        '<option value="C-8">C - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option>' +
-        '<option value="C-9">C - ९. २० पर्यंतच्या वस्तूंच्या समूहातून ठराविक संख्येएवढ्या वस्तू काढून दाखवितो.</option>' +
-        '</optgroup>';
-
-      var o3 = '<option value="">-- क्षमता निवडा --</option>' +
-        '<optgroup label="गट A (प्रगत)">' +
-        '<option value="A-24">A - २४. स्थानिक किंमत संकल्पना वापरून ० ते ९९ पर्यंतच्या संख्यांची बेरीज करतो. (बिनहातच्याची)</option>' +
-        '<option value="A-25">A - २५. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची बेरीज करतो. (हातच्याची)</option>' +
-        '<option value="A-26">A - २६. ० ते ९९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="A-27">A - २७. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची वजाबाकी करतो. (बिनहातच्याची)</option>' +
-        '<option value="A-28">A - २८. स्थानिक किंमत संकल्पना वापरून ९९ पर्यंतच्या संख्यांची वजाबाकी करतो. (हातच्याची)</option>' +
-        '<option value="A-29">A - २९. ९९ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट B (मध्यम)">' +
-        '<option value="B-14">B - १४. ० ते २० पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
-        '<option value="B-15">B - १५. ० ते २० पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="B-16">B - १६. ० ते २० पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="B-17">B - १७. ० ते २० पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
-        '<option value="B-18">B - १८. ० ते २० पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="B-19">B - १९. ० ते २० पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="B-20">B - २०. ० ते ५० पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="B-21">B - २१. ० ते ५० पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="B-22">B - २२. ० ते ५० पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="B-23">B - २३. ० ते ५० पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>' +
-        '<optgroup label="गट C (आरंभिक)">' +
-        '<option value="C-1">C - १. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करता येत नाही.</option>' +
-        '<option value="C-2">C - २. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरीज करतो.</option>' +
-        '<option value="C-3">C - ३. ० ते ४ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="C-4">C - ४. ० ते ४ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="C-5">C - ५. ० ते ४ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
-        '<option value="C-6">C - ६. ० ते ४ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="C-7">C - ७. ० ते ४ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="C-8">C - ८. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवितो.</option>' +
-        '<option value="C-9">C - ९. ० ते ९ पर्यंतच्या संख्यांची बेरजेचे चिन्ह वापरून बेरीज करतो.</option>' +
-        '<option value="C-10">C - १०. ० ते ९ पर्यंतच्या संख्यांचा वापर करून बेरजेची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '<option value="C-11">C - ११. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून वजाबाकी करतो.</option>' +
-        '<option value="C-12">C - १२. ० ते ९ पर्यंतच्या संख्यांची वजाबाकीचे चिन्ह वापरून वजाबाकी करतो.</option>' +
-        '<option value="C-13">C - १३. ० ते ९ पर्यंतच्या संख्यांचा वापर करून वजाबाकीची शाब्दिक उदाहरणे सोडवितो.</option>' +
-        '</optgroup>';
-
-      function fillOptions(r, w, n, o) {
-        document.getElementById('readingCompetency').innerHTML = r;
-        document.getElementById('writingCompetency').innerHTML = w;
-        document.getElementById('mathNumberCompetency').innerHTML = n;
-        document.getElementById('mathOpCompetency').innerHTML = o;
-      }
-
-      document.getElementById('schoolName').addEventListener('change', function() {
-        var code = this.value;
-        var tSelect = document.getElementById('teacherSelect');
-
-        if (code && teachersData[code]) {
-          var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
-          for (var i = 0; i < teachersData[code].length; i++) {
-            opts += '<option value="' + teachersData[code][i] + '">' + teachersData[code][i] + '</option>';
-          }
-          tSelect.innerHTML = opts;
-        } else {
-          tSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
-        }
-      });
-
-      document.getElementById('evalGroupSelect').addEventListener('change', function() {
-        var grp = this.value;
-        var cSelect = document.getElementById('studentClassSelect');
-        var infoText = document.getElementById('subjectInfoText');
-
-        if (grp === 'class2') {
-          infoText.innerText = "इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
-          cSelect.innerHTML = '<option value="२">इयत्ता २ री</option>';
-          fillOptions(r2, w2, n2, o2);
-        } else {
-          infoText.innerText = "इयत्ता ३ री ते ५ वी | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया";
-          cSelect.innerHTML = '<option value="">-निवडा-</option>' +
-                              '<option value="३">इयत्ता तिसरी</option>' +
-                              '<option value="४">इयत्ता चौथी</option>' +
-                              '<option value="५">इयत्ता पाचवी</option>';
-          fillOptions('<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>', '<option value="">-- आधी इयत्ता निवडा --</option>');
-        }
-      });
-
-      document.getElementById('studentClassSelect').addEventListener('change', function() {
-        var cls = this.value;
-        if (cls === '२') {
-          fillOptions(r2, w2, n2, o2);
-        } else if (cls === '३' || cls === '४' || cls === '५') {
-          fillOptions(r3, w3, n3, o3);
-        } else {
-          fillOptions('<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>', '<option value="">-- क्षमता निवडा --</option>');
-        }
-      });
-
-      // विद्यार्थी माहिती जोडा व इनपुट रिसेट करा
-      document.getElementById('addStudentBtn').addEventListener('click', function() {
-        var name = document.getElementById('studentName').value.trim();
-        var cls = document.getElementById('studentClassSelect').value;
-        var r = document.getElementById('readingCompetency').value || "-";
-        var w = document.getElementById('writingCompetency').value || "-";
-        var n = document.getElementById('mathNumberCompetency').value || "-";
-        var o = document.getElementById('mathOpCompetency').value || "-";
-
-        if (!name) {
-          alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा.");
-          return;
-        }
-
-        var tbody = document.getElementById('studentTableBody');
-        var row = '<tr>' +
-          '<td>' + currentStudentIndex + '</td>' +
-          '<td>' + name + '</td>' +
-          '<td>' + cls + '</td>' +
-          '<td>' + r + '</td>' +
-          '<td>' + w + '</td>' +
-          '<td>' + n + '</td>' +
-          '<td>' + o + '</td>' +
-          '</tr>';
-
-        tbody.innerHTML += row;
-        document.getElementById('savedDataCard').style.display = 'block';
-
-        // रिसेट इनपुट बॉक्स आणि क्रमांक वाढवणे
-        document.getElementById('studentName').value = '';
-        document.getElementById('readingCompetency').selectedIndex = 0;
-        document.getElementById('writingCompetency').selectedIndex = 0;
-        document.getElementById('mathNumberCompetency').selectedIndex = 0;
-        document.getElementById('mathOpCompetency').selectedIndex = 0;
-
-        currentStudentIndex++;
-        document.getElementById('studentNo').innerText = currentStudentIndex;
-
-        alert("विद्यार्थी माहिती यशस्वीरीत्या जतन झाली आहे!");
-      });
-
-      fillOptions(r2, w2, n2, o2);
+      // रिसेट फॉर्म
+      document.getElementById('studentName').value = '';
+      document.getElementById('readingComp').value = '';
+      document.getElementById('writingComp').value = '';
+      document.getElementById('mathNumComp').value = '';
+      document.getElementById('mathOpComp').value = '';
     });
   </script>
 </body>
