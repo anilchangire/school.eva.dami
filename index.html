@@ -7,253 +7,382 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', 'Noto Sans Marathi', sans-serif; }
     body { background-color: #f4f6fa; padding: 15px; }
-
-    .header-title-box { text-align: center; margin-bottom: 10px; }
-    .main-title { font-size: 20px; font-weight: bold; color: #0d62ba; }
-    .sub-title { font-size: 16px; font-weight: bold; color: #1e293b; margin-top: 2px; }
-
-    .card { background: #ffffff; border-radius: 8px; border: 1px solid #cbd5e1; padding: 15px; margin-bottom: 15px; }
-    .card-title { color: #0d62ba; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
-
-    .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 4px; color: #1e293b; }
-
-    select, input {
-      width: 100%;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 5px;
-      outline: none;
-      background-color: #ffffff !important;
-      color: #1e293b !important;
+    
+    /* Header Styling */
+    .header-container { background-color: #0d62ba; color: #ffffff; padding: 16px 20px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
+    .main-title { font-size: 22px; font-weight: bold; }
+    .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
+    
+    /* Card Styling */
+    .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 16px; margin-bottom: 15px; }
+    .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+    
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; color: #1e293b; }
+    
+    /* Input & Select Styling */
+    select, input { 
+      width: 100%; 
+      padding: 10px; 
+      font-size: 15px; 
+      border: 1px solid #cbd5e1; 
+      border-radius: 6px; 
+      outline: none; 
+      background-color: #ffffff !important; 
+      color: #1e293b !important; 
     }
 
-    /* प्रिंट हेडर लेआउट (तक्त्याच्या वरची शाळा व शिक्षकाची माहिती) */
-    .print-header-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
+    select:focus, input:focus { border-color: #0d62ba; }
+    optgroup { font-weight: bold; color: #0d62ba; background-color: #f1f5f9; }
+    optgroup option { font-weight: normal; color: #1e293b; background-color: #ffffff; padding: 6px; }
+
+    .subject-info-text { font-size: 13px; color: #64748b; margin-top: 6px; margin-bottom: 15px; font-weight: 500; }
+
+    .student-box { border: 2px solid #0d62ba; border-radius: 8px; padding: 15px; background-color: #ffffff; margin-top: 10px; }
+    .student-no-header { text-align: center; margin-bottom: 15px; }
+    .student-no-title { font-size: 13px; font-weight: bold; color: #0d62ba; }
+    .student-no-val { font-size: 18px; font-weight: bold; color: #1e293b; margin-top: 2px; }
+
+    .blue-label { color: #0d62ba; font-weight: bold; }
+    .error-msg { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
+
+    .btn-add {
+      background-color: #27ae60;
+      color: white;
+      padding: 12px 15px;
+      border: none;
       border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 13px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 15px;
     }
-    .info-row { margin-bottom: 4px; }
-    .info-label { font-weight: bold; color: #0d62ba; }
+    .btn-add:hover { background-color: #219150; }
 
-    .btn-add { background-color: #27ae60; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 10px; }
-    .btn-print { background-color: #0d62ba; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; margin-top: 15px; }
+    .btn-print {
+      background-color: #0d62ba;
+      color: white;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 15px;
+    }
 
+    /* Table Styling */
     .table-container { overflow-x: auto; margin-top: 10px; }
     table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
-    th, td { border: 1px solid #000000; padding: 6px 8px; text-align: left; vertical-align: top; }
-    th { background-color: #ffffff; color: #000000; text-align: center; font-weight: bold; }
+    th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; vertical-align: top; }
+    th { background-color: #0d62ba; color: white; text-align: center; font-weight: bold; }
 
-    .summary-title { font-size: 14px; font-weight: bold; color: #000000; margin-top: 15px; margin-bottom: 6px; }
+    /* Print Header Box (फक्त प्रिंटमध्ये दिसण्यासाठी) */
+    .print-header-grid {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
 
-    /* प्रिंटसाठी विशेष स्टाईल (इमेजप्रमाणे आऊटपुट मिळण्यासाठी) */
+    /* प्रिंटसाठी विशेष CSS - स्क्रीनवर फॉर्म दिसेल, पण प्रिंट काढताना फक्त PDF लेआउट येईल */
     @media print {
       body { background-color: #ffffff; padding: 0; }
       .no-print { display: none !important; }
-      .card { border: none; padding: 0; margin: 0; }
-      .print-header-grid { background: #fff !important; border: 1px solid #000 !important; font-size: 12px; }
+      .card { border: none; padding: 0; margin-bottom: 15px; }
+      .print-header-grid { display: grid !important; }
       table { border: 1px solid #000 !important; font-size: 11px; }
-      th, td { border: 1px solid #000 !important; }
-      .info-label { color: #000 !important; }
-      .main-title { color: #0d62ba !important; }
+      th, td { border: 1px solid #000 !important; color: #000 !important; }
+      th { background-color: #fff !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- हेडर शीर्षक -->
-  <div class="header-title-box">
+  <!-- १. स्क्रीनवरील हेडर -->
+  <div class="header-container no-print">
     <div class="main-title">मिशन निपुण बीड</div>
-    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता</div>
+    <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- १. शाळा व शिक्षकाची माहिती इनपुट (नो-प्रिंट) -->
+  <!-- २. मूळ शाळा व शिक्षकाचा फॉर्म (नो-प्रिंट) -->
   <div class="card no-print">
-    <div class="card-title">शाळा व शिक्षकाची माहिती</div>
-    <div class="form-group">
-      <label>शाळेचे नाव *</label>
-      <input type="text" id="schoolInput" placeholder="उदा. जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी" oninput="updatePrintHeader()">
+    <div class="card-title" style="border-bottom: 2px solid #0d62ba; padding-bottom: 5px;">१. शाळा व शिक्षकाची माहिती</div>
+
+    <div class="form-group" style="margin-top: 12px;">
+      <label>शाळा निवडा *</label>
+      <select id="schoolName">
+        <option value="">-- शाळा निवडा --</option>
+        <option value="जि.प.कें.प्रा.शाळा कन्या नागापूर">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
+        <option value="जि.प.प्रा.शाळा बहाद्दरवाडी">जि.प.प्रा.शाळा बहाद्दरवाडी</option>
+      </select>
     </div>
+
     <div class="form-group">
       <label>वर्गशिक्षक *</label>
-      <input type="text" id="teacherInput" placeholder="उदा. श्रीमती बिटलेवार अश्विनी दिनकरराव" oninput="updatePrintHeader()">
-    </div>
-    <div style="display: flex; gap: 10px;">
-      <div class="form-group" style="flex:1;">
-        <label>दिनांक *</label>
-        <input type="date" id="dateInput" onchange="updatePrintHeader()">
-      </div>
-      <div class="form-group" style="flex:1;">
-        <label>केंद्र *</label>
-        <input type="text" id="centerInput" placeholder="उदा. कन्या नागापूर" oninput="updatePrintHeader()">
-      </div>
-    </div>
-    <div style="display: flex; gap: 10px;">
-      <div class="form-group" style="flex:1;">
-        <label>गट (इयत्ता) *</label>
-        <input type="text" id="groupInput" placeholder="उदा. इयत्ता २ री" oninput="updatePrintHeader()">
-      </div>
-      <div class="form-group" style="flex:1;">
-        <label>तालुका / जिल्हा *</label>
-        <input type="text" id="districtInput" placeholder="उदा. परळी वै. / बीड" oninput="updatePrintHeader()">
-      </div>
+      <select id="teacherSelect">
+        <option value="">-- आधी शाळा निवडा --</option>
+      </select>
     </div>
   </div>
 
-  <!-- २. विद्यार्थी क्षमता नोंदणी इनपुट (नो-प्रिंट) -->
+  <!-- ३. मूळ विद्यार्थी क्षमता नोंदणी फॉर्म (नो-प्रिंट) -->
   <div class="card no-print">
-    <div class="card-title">विद्यार्थी नोंदणी</div>
-    <div class="form-group">
-      <label>विद्यार्थ्याचे नाव</label>
-      <input type="text" id="studentName" placeholder="विद्यार्थ्याचे पूर्ण नाव">
+    <div class="card-title">विद्यार्थी क्षमता नोंदणी</div>
+    
+    <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+      <label style="margin-bottom:0; white-space: nowrap; color: #0d62ba;">मूल्यमापन गट:</label>
+      <select id="evalGroupSelect" style="font-weight: bold;">
+        <option value="class2">इयत्ता २ री</option>
+        <option value="class3to5">इयत्ता ३ री ते ५ वी</option>
+      </select>
     </div>
-    <div class="form-group">
-      <label>इयत्ता</label>
-      <input type="text" id="studentClass" value="इयत्ता दुसरी">
+
+    <div class="subject-info-text" id="subjectInfoText">
+      इयत्ता २ री | विषय क्षेत्रे: वाचन, लेखन, संख्याज्ञान, गणितीय क्रिया
     </div>
-    <div class="form-group">
-      <label>वाचन क्षमता</label>
-      <input type="text" id="readingComp" placeholder="उदा. १. सोपी वाक्ये वाचतो.">
+
+    <div class="student-box">
+      <div class="student-no-header">
+        <div class="student-no-title">क्र.</div>
+        <div class="student-no-val" id="studentNo">1</div>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">विद्यार्थ्याचे नाव</label>
+        <input type="text" id="studentName" placeholder="नाव (फक्त मराठीत)" autocomplete="off" onkeyup="validateMarathiInput(this)">
+        <div id="marathiError" class="error-msg">कृपया विद्यार्थ्याचे नाव फक्त मराठीतच प्रविष्ट करा.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">इयत्ता</label>
+        <select id="studentClassSelect">
+          <option value="इयत्ता दुसरी">इयत्ता दुसरी</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">वाचन</label>
+        <select id="readingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">लेखन</label>
+        <select id="writingCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">संख्याज्ञान</label>
+        <select id="mathNumberCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <div class="form-group">
+        <label class="blue-label">गणितीय क्रिया</label>
+        <select id="mathOpCompetency"><option value="">-- क्षमता निवडा --</option></select>
+      </div>
+
+      <button type="button" class="btn-add" id="addStudentBtn">+ जतन करा आणि आणखी विद्यार्थी जोडा</button>
     </div>
-    <div class="form-group">
-      <label>लेखन क्षमता</label>
-      <input type="text" id="writingComp" placeholder="उदा. ४. श्रुतलेखन करताना सर्व अक्षरे लिहितो.">
-    </div>
-    <div class="form-group">
-      <label>संख्याज्ञान क्षमता</label>
-      <input type="text" id="mathNumComp" placeholder="उदा. ८. १० ते २० पर्यंतच्या वस्तू मोजतो.">
-    </div>
-    <div class="form-group">
-      <label>गणितीय क्रिया क्षमता</label>
-      <input type="text" id="mathOpComp" placeholder="उदा. ६. ० ते ९ पर्यंतच्या संख्यांची बेरीज करतो.">
-    </div>
-    <button type="button" class="btn-add" id="addBtn">+ जतन करा</button>
   </div>
 
-  <!-- ३. प्रिंटमध्ये दिसणारा शाळा व माहिती हेडर बॉक्स -->
-  <div class="print-header-grid" id="printHeader">
+  <!-- ================= प्रिंट/PDF साठी डिझाईन केलेले लेआउट ================= -->
+  
+  <!-- PDF चे मुख्य शीर्षक (फक्त प्रिंटमध्ये येईल) -->
+  <div style="text-align: center; margin-bottom: 10px;" class="only-print">
+    <h2 style="color: #0d62ba; font-size: 18px;">मिशन निपुण बीड</h2>
+    <h4 style="font-size: 14px; margin-top: 2px;">विद्यार्थी मूल्यमापन तक्ता</h4>
+  </div>
+
+  <!-- शाळा व शिक्षकाची माहिती (PDF साठीचा हेडर बॉक्स) -->
+  <div class="print-header-grid" id="printHeaderBox">
     <div>
-      <div class="info-row"><span class="info-label">शाळा:</span> <span id="lblSchool">जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी</span></div>
-      <div class="info-row"><span class="info-label">दिनांक:</span> <span id="lblDate">2026-09-02</span></div>
-      <div class="info-row"><span class="info-label">गट:</span> <span id="lblGroup">इयत्ता २ री</span></div>
+      <div><b>शाळा:</b> <span id="pSchool">जि.प.प्रा.शाळा बहाद्दरवाडी</span></div>
+      <div><b>दिनांक:</b> <span id="pDate">2026-09-02</span></div>
+      <div><b>गट:</b> <span id="pGroup">इयत्ता २ री</span></div>
     </div>
     <div>
-      <div class="info-row"><span class="info-label">वर्गशिक्षक:</span> <span id="lblTeacher">श्रीमती बिटलेवार अश्विनी दिनकरराव</span></div>
-      <div class="info-row"><span class="info-label">केंद्र:</span> <span id="lblCenter">कन्या नागापूर</span></div>
-      <div class="info-row"><span class="info-label">तालुका / जिल्हा:</span> <span id="lblDistrict">परळी वै. / बीड</span></div>
+      <div><b>वर्गशिक्षक:</b> <span id="pTeacher">श्रीमती बिटलेवार अश्विनी दिनकरराव</span></div>
+      <div><b>केंद्र:</b> <span id="pCenter">कन्या नागापूर</span></div>
+      <div><b>तालुका / जिल्हा:</b> <span>परळी वै. / बीड</span></div>
     </div>
   </div>
 
-  <!-- ४. विद्यार्थ्यांची नावे व प्राप्त क्षमता तक्ता -->
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 5%;">क्र.</th>
-          <th style="width: 20%;">नाव</th>
-          <th style="width: 10%;">इयत्ता</th>
-          <th style="width: 20%;">वाचन</th>
-          <th style="width: 20%;">लेखन</th>
-          <th style="width: 12.5%;">संख्याज्ञान</th>
-          <th style="width: 12.5%;">गणितीय क्रिया</th>
-        </tr>
-      </thead>
-      <tbody id="studentTbody">
-      </tbody>
-    </table>
+  <!-- ४. नोंदवलेल्या विद्यार्थ्यांची माहिती (विद्यार्थी यादी तक्ता) -->
+  <div class="card" id="savedDataCard" style="display: none;">
+    <div class="card-title no-print">नोंदवलेल्या विद्यार्थ्यांची माहिती</div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 5%;">क्र.</th>
+            <th style="width: 20%;">नाव</th>
+            <th style="width: 10%;">इयत्ता</th>
+            <th style="width: 20%;">वाचन</th>
+            <th style="width: 20%;">लेखन</th>
+            <th style="width: 12.5%;">संख्याज्ञान</th>
+            <th style="width: 12.5%;">गणितीय क्रिया</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody">
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- ५. गोषवारा तक्ता -->
-  <div class="summary-title" id="summaryClassHeader">इयत्ता दुसरी</div>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th style="width: 40%;">विषय</th>
-          <th style="width: 15%;">गट A</th>
-          <th style="width: 15%;">गट B</th>
-          <th style="width: 15%;">गट C</th>
-          <th style="width: 15%;">एकूण</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>वाचन</td>
-          <td style="text-align:center;">2</td>
-          <td style="text-align:center;">3</td>
-          <td style="text-align:center;">1</td>
-          <td style="text-align:center; font-weight:bold;">6</td>
-        </tr>
-        <tr>
-          <td>लेखन</td>
-          <td style="text-align:center;">2</td>
-          <td style="text-align:center;">2</td>
-          <td style="text-align:center;">2</td>
-          <td style="text-align:center; font-weight:bold;">6</td>
-        </tr>
-        <tr>
-          <td>संख्याज्ञान</td>
-          <td style="text-align:center;">4</td>
-          <td style="text-align:center;">2</td>
-          <td style="text-align:center;">0</td>
-          <td style="text-align:center; font-weight:bold;">6</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- ५. वर्गनिहाय गोषवारा (Summary Table) -->
+  <div class="card" id="summaryCard" style="display: none;">
+    <div class="card-title no-print">वर्गनिहाय गोषवारा (Live Summary)</div>
+    <div style="font-weight: bold; margin-bottom: 5px;" id="summaryClassTitle">इयत्ता दुसरी</div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40%;">विषय</th>
+            <th style="width: 15%;">गट A</th>
+            <th style="width: 15%;">गट B</th>
+            <th style="width: 15%;">गट C</th>
+            <th style="width: 15%;">एकूण</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>वाचन</b></td>
+            <td id="r_A" style="text-align:center;">0</td><td id="r_B" style="text-align:center;">0</td><td id="r_C" style="text-align:center;">0</td><td id="r_Total" style="text-align:center; font-weight:bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>लेखन</b></td>
+            <td id="w_A" style="text-align:center;">0</td><td id="w_B" style="text-align:center;">0</td><td id="w_C" style="text-align:center;">0</td><td id="w_Total" style="text-align:center; font-weight:bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>संख्याज्ञान</b></td>
+            <td id="n_A" style="text-align:center;">0</td><td id="n_B" style="text-align:center;">0</td><td id="n_C" style="text-align:center;">0</td><td id="n_Total" style="text-align:center; font-weight:bold;">0</td>
+          </tr>
+          <tr>
+            <td><b>गणितीय क्रिया</b></td>
+            <td id="o_A" style="text-align:center;">0</td><td id="o_B" style="text-align:center;">0</td><td id="o_C" style="text-align:center;">0</td><td id="o_Total" style="text-align:center; font-weight:bold;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- प्रिंट बटण -->
-  <button class="btn-print no-print" onclick="window.print()">🖨️ PDF डाउनलोड / प्रिंट काढा</button>
+    <!-- PDF/प्रिंट काढा बटण -->
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ PDF प्रिंट काढा</button>
+  </div>
 
   <script>
-    var srNo = 1;
+    var currentStudentIndex = 1;
+    var studentsList = [];
 
-    function updatePrintHeader() {
-      document.getElementById('lblSchool').innerText = document.getElementById('schoolInput').value || 'जिल्हा परिषद प्राथमिक शाळा बहाद्दरवाडी';
-      document.getElementById('lblTeacher').innerText = document.getElementById('teacherInput').value || 'श्रीमती बिटलेवार अश्विनी दिनकरराव';
-      document.getElementById('lblDate').innerText = document.getElementById('dateInput').value || '2026-09-02';
-      document.getElementById('lblCenter').innerText = document.getElementById('centerInput').value || 'कन्या नागापूर';
-      document.getElementById('lblGroup').innerText = document.getElementById('groupInput').value || 'इयत्ता २ री';
-      document.getElementById('lblDistrict').innerText = document.getElementById('districtInput').value || 'परळी वै. / बीड';
+    function validateMarathiInput(input) {
+      var marathiError = document.getElementById("marathiError");
+      var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
+      if (nonMarathiPattern.test(input.value)) {
+        marathiError.style.display = "block";
+        input.value = input.value.replace(nonMarathiPattern, '');
+      } else {
+        marathiError.style.display = "none";
+      }
     }
 
-    document.getElementById('addBtn').addEventListener('click', function() {
-      var name = document.getElementById('studentName').value.trim();
-      var cls = document.getElementById('studentClass').value;
-      var r = document.getElementById('readingComp').value;
-      var w = document.getElementById('writingComp').value;
-      var n = document.getElementById('mathNumComp').value;
-      var o = document.getElementById('mathOpComp').value;
+    document.addEventListener("DOMContentLoaded", function() {
+      var teachersData = {
+        "जि.प.कें.प्रा.शाळा कन्या नागापूर": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
+        "जि.प.प्रा.शाळा बहाद्दरवाडी": ["श्रीमती बिटलेवार अश्विनी दिनकरराव"]
+      };
 
-      if(!name) { alert("कृपया नाव भरा!"); return; }
+      var r2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - सोपी वाक्ये वाचतो">A - सोपी वाक्ये वाचतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - विरामचिन्हे ओळखतो">B - विरामचिन्हे ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अक्षरे ओळखत नाही">C - अक्षरे ओळखत नाही</option></optgroup>';
+      var w2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वाक्ये लिहितो">A - वाक्ये लिहितो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - शब्द लिहितो">B - शब्द लिहितो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अक्षरे लिहितो">C - अक्षरे लिहितो</option></optgroup>';
+      var n2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वस्तू मोजतो">A - वस्तू मोजतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - संख्या ओळखतो">B - संख्या ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अंक ओळखत नाही">C - अंक ओळखत नाही</option></optgroup>';
+      var o2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वजाबाकी करतो">A - वजाबाकी करतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - बेरीज करतो">B - बेरीज करतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - क्रिया करत नाही">C - क्रिया करत नाही</option></optgroup>';
 
-      var row = '<tr>' +
-        '<td style="text-align:center;">' + srNo + '</td>' +
-        '<td>' + name + '</td>' +
-        '<td>' + cls + '</td>' +
-        '<td>' + (r || '-') + '</td>' +
-        '<td>' + (w || '-') + '</td>' +
-        '<td>' + (n || '-') + '</td>' +
-        '<td>' + (o || '-') + '</td>' +
-        '</tr>';
+      function fillOptions(r, w, n, o) {
+        document.getElementById('readingCompetency').innerHTML = r;
+        document.getElementById('writingCompetency').innerHTML = w;
+        document.getElementById('mathNumberCompetency').innerHTML = n;
+        document.getElementById('mathOpCompetency').innerHTML = o;
+      }
 
-      document.getElementById('studentTbody').innerHTML += row;
-      srNo++;
+      document.getElementById('schoolName').addEventListener('change', function() {
+        var school = this.value;
+        var tSelect = document.getElementById('teacherSelect');
+        document.getElementById('pSchool').innerText = school || '---';
+        if (school && teachersData[school]) {
+          var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
+          for (var i = 0; i < teachersData[school].length; i++) {
+            opts += '<option value="' + teachersData[school][i] + '">' + teachersData[school][i] + '</option>';
+          }
+          tSelect.innerHTML = opts;
+        } else {
+          tSelect.innerHTML = '<option value="">-- आधी शाळा निवडा --</option>';
+        }
+      });
 
-      // रिसेट फॉर्म
-      document.getElementById('studentName').value = '';
-      document.getElementById('readingComp').value = '';
-      document.getElementById('writingComp').value = '';
-      document.getElementById('mathNumComp').value = '';
-      document.getElementById('mathOpComp').value = '';
+      document.getElementById('teacherSelect').addEventListener('change', function() {
+        document.getElementById('pTeacher').innerText = this.value || '---';
+      });
+
+      function updateSummary() {
+        var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
+
+        studentsList.forEach(function(s) {
+          if (s.r.startsWith("A")) counts.r.A++; else if (s.r.startsWith("B")) counts.r.B++; else if (s.r.startsWith("C")) counts.r.C++;
+          if (s.w.startsWith("A")) counts.w.A++; else if (s.w.startsWith("B")) counts.w.B++; else if (s.w.startsWith("C")) counts.w.C++;
+          if (s.n.startsWith("A")) counts.n.A++; else if (s.n.startsWith("B")) counts.n.B++; else if (s.n.startsWith("C")) counts.n.C++;
+          if (s.o.startsWith("A")) counts.o.A++; else if (s.o.startsWith("B")) counts.o.B++; else if (s.o.startsWith("C")) counts.o.C++;
+        });
+
+        document.getElementById('r_A').innerText = counts.r.A; document.getElementById('r_B').innerText = counts.r.B; document.getElementById('r_C').innerText = counts.r.C; document.getElementById('r_Total').innerText = counts.r.A + counts.r.B + counts.r.C;
+        document.getElementById('w_A').innerText = counts.w.A; document.getElementById('w_B').innerText = counts.w.B; document.getElementById('w_C').innerText = counts.w.C; document.getElementById('w_Total').innerText = counts.w.A + counts.w.B + counts.w.C;
+        document.getElementById('n_A').innerText = counts.n.A; document.getElementById('n_B').innerText = counts.n.B; document.getElementById('n_C').innerText = counts.n.C; document.getElementById('n_Total').innerText = counts.n.A + counts.n.B + counts.n.C;
+        document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
+      }
+
+      document.getElementById('addStudentBtn').addEventListener('click', function() {
+        var name = document.getElementById('studentName').value.trim();
+        var cls = document.getElementById('studentClassSelect').value;
+        var r = document.getElementById('readingCompetency').value;
+        var w = document.getElementById('writingCompetency').value;
+        var n = document.getElementById('mathNumberCompetency').value;
+        var o = document.getElementById('mathOpCompetency').value;
+
+        if (!name) { alert("कृपया विद्यार्थ्याचे नाव प्रविष्ट करा."); return; }
+
+        studentsList.push({ name: name, cls: cls, r: r, w: w, n: n, o: o });
+
+        var tbody = document.getElementById('studentTableBody');
+        tbody.innerHTML += '<tr>' +
+          '<td style="text-align:center;">' + currentStudentIndex + '</td>' +
+          '<td>' + name + '</td>' +
+          '<td>' + cls + '</td>' +
+          '<td>' + (r || '-') + '</td>' +
+          '<td>' + (w || '-') + '</td>' +
+          '<td>' + (n || '-') + '</td>' +
+          '<td>' + (o || '-') + '</td>' +
+          '</tr>';
+
+        document.getElementById('savedDataCard').style.display = 'block';
+        document.getElementById('summaryCard').style.display = 'block';
+
+        updateSummary();
+
+        document.getElementById('studentName').value = '';
+        document.getElementById('readingCompetency').selectedIndex = 0;
+        document.getElementById('writingCompetency').selectedIndex = 0;
+        document.getElementById('mathNumberCompetency').selectedIndex = 0;
+        document.getElementById('mathOpCompetency').selectedIndex = 0;
+
+        currentStudentIndex++;
+        document.getElementById('studentNo').innerText = currentStudentIndex;
+
+        alert("विद्यार्थी माहिती यशस्वीरीत्या जतन झाली आहे!");
+      });
+
+      fillOptions(r2, w2, n2, o2);
     });
   </script>
 </body>
