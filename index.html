@@ -14,6 +14,23 @@
     .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
     
     /* Card Styling */
+    .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding:…
+[2:56 pm, 10/9/2026] Anil Changire: <!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मिशन निपुण बीड</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', 'Noto Sans Marathi', sans-serif; }
+    body { background-color: #f4f6fa; padding: 15px; }
+    
+    /* Header Styling */
+    .header-container { background-color: #0d62ba; color: #ffffff; padding: 16px 20px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
+    .main-title { font-size: 22px; font-weight: bold; }
+    .sub-title { font-size: 14px; opacity: 0.95; margin-top: 4px; }
+    
+    /* Card Styling */
     .card { background: #ffffff; border-radius: 10px; border: 1px solid #cbd5e1; padding: 16px; margin-bottom: 15px; }
     .card-title { color: #0d62ba; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
     
@@ -79,7 +96,7 @@
     th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; vertical-align: top; }
     th { background-color: #0d62ba; color: white; text-align: center; font-weight: bold; }
 
-    /* Print Header Box (फक्त प्रिंटमध्ये दिसण्यासाठी) */
+    /* Print Header Box (फक्त प्रिंट/PDF मध्ये दिसण्यासाठी) */
     .print-header-grid {
       display: none;
       grid-template-columns: 1fr 1fr;
@@ -90,7 +107,7 @@
       font-size: 12px;
     }
 
-    /* प्रिंटसाठी विशेष CSS - स्क्रीनवर फॉर्म दिसेल, पण प्रिंट काढताना फक्त PDF लेआउट येईल */
+    /* प्रिंटसाठी विशेष स्टाईल */
     @media print {
       body { background-color: #ffffff; padding: 0; }
       .no-print { display: none !important; }
@@ -104,13 +121,13 @@
 </head>
 <body>
 
-  <!-- १. स्क्रीनवरील हेडर -->
+  <!-- १. स्क्रीनवरील मूळ हेडर -->
   <div class="header-container no-print">
     <div class="main-title">मिशन निपुण बीड</div>
     <div class="sub-title">विद्यार्थी मूल्यमापन तक्ता (नोंद व संकलन)</div>
   </div>
 
-  <!-- २. मूळ शाळा व शिक्षकाचा फॉर्म (नो-प्रिंट) -->
+  <!-- २. शाळा व शिक्षकाचा मूळ फॉर्म -->
   <div class="card no-print">
     <div class="card-title" style="border-bottom: 2px solid #0d62ba; padding-bottom: 5px;">१. शाळा व शिक्षकाची माहिती</div>
 
@@ -118,8 +135,12 @@
       <label>शाळा निवडा *</label>
       <select id="schoolName">
         <option value="">-- शाळा निवडा --</option>
-        <option value="जि.प.कें.प्रा.शाळा कन्या नागापूर">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
-        <option value="जि.प.प्रा.शाळा बहाद्दरवाडी">जि.प.प्रा.शाळा बहाद्दरवाडी</option>
+        <option value="SCH01">जि.प.कें.प्रा.शाळा कन्या नागापूर</option>
+        <option value="SCH02">जि.प.मा.शाळा नागापूर</option>
+        <option value="SCH03">जि.प.प्रा.शाळा डाबी</option>
+        <option value="SCH04">जि.प.प्रा.शाळा डाबी तांडा</option>
+        <option value="SCH05">जि.प.प्रा.शाळा वानटाकळी</option>
+        <option value="SCH06">जि.प.प्रा.शाळा बहाद्दरवाडी</option>
       </select>
     </div>
 
@@ -131,7 +152,7 @@
     </div>
   </div>
 
-  <!-- ३. मूळ विद्यार्थी क्षमता नोंदणी फॉर्म (नो-प्रिंट) -->
+  <!-- ३. विद्यार्थी क्षमता नोंदणी फॉर्म -->
   <div class="card no-print">
     <div class="card-title">विद्यार्थी क्षमता नोंदणी</div>
     
@@ -190,29 +211,26 @@
     </div>
   </div>
 
-  <!-- ================= प्रिंट/PDF साठी डिझाईन केलेले लेआउट ================= -->
-  
-  <!-- PDF चे मुख्य शीर्षक (फक्त प्रिंटमध्ये येईल) -->
-  <div style="text-align: center; margin-bottom: 10px;" class="only-print">
-    <h2 style="color: #0d62ba; font-size: 18px;">मिशन निपुण बीड</h2>
-    <h4 style="font-size: 14px; margin-top: 2px;">विद्यार्थी मूल्यमापन तक्ता</h4>
+  <!-- PDF / प्रिंट साठीचा लेआउट (उदाहरणाच्या फोटोनुसार) -->
+  <div style="text-align: center; margin-bottom: 10px; display: none;" class="print-header-grid">
+    <h2 style="color: #0d62ba; font-size: 18px; text-align: center; width: 100%;">मिशन निपुण बीड</h2>
+    <h4 style="font-size: 14px; margin-top: 2px; text-align: center; width: 100%;">विद्यार्थी मूल्यमापन तक्ता</h4>
   </div>
 
-  <!-- शाळा व शिक्षकाची माहिती (PDF साठीचा हेडर बॉक्स) -->
   <div class="print-header-grid" id="printHeaderBox">
     <div>
-      <div><b>शाळा:</b> <span id="pSchool">जि.प.प्रा.शाळा बहाद्दरवाडी</span></div>
+      <div><b>शाळा:</b> <span id="pSchool">---</span></div>
       <div><b>दिनांक:</b> <span id="pDate">2026-09-02</span></div>
       <div><b>गट:</b> <span id="pGroup">इयत्ता २ री</span></div>
     </div>
     <div>
-      <div><b>वर्गशिक्षक:</b> <span id="pTeacher">श्रीमती बिटलेवार अश्विनी दिनकरराव</span></div>
-      <div><b>केंद्र:</b> <span id="pCenter">कन्या नागापूर</span></div>
+      <div><b>वर्गशिक्षक:</b> <span id="pTeacher">---</span></div>
+      <div><b>केंद्र:</b> <span>कन्या नागापूर</span></div>
       <div><b>तालुका / जिल्हा:</b> <span>परळी वै. / बीड</span></div>
     </div>
   </div>
 
-  <!-- ४. नोंदवलेल्या विद्यार्थ्यांची माहिती (विद्यार्थी यादी तक्ता) -->
+  <!-- ४. नोंदवलेल्या विद्यार्थ्यांची यादी -->
   <div class="card" id="savedDataCard" style="display: none;">
     <div class="card-title no-print">नोंदवलेल्या विद्यार्थ्यांची माहिती</div>
     <div class="table-container">
@@ -271,13 +289,14 @@
     </div>
 
     <!-- PDF/प्रिंट काढा बटण -->
-    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ PDF प्रिंट काढा</button>
+    <button type="button" class="btn-print no-print" onclick="window.print()">🖨️ PDF प्रिन्ट काढा</button>
   </div>
 
   <script>
     var currentStudentIndex = 1;
     var studentsList = [];
 
+    // मराठी नाव व्हॅलिडेशन
     function validateMarathiInput(input) {
       var marathiError = document.getElementById("marathiError");
       var nonMarathiPattern = /[^\u0900-\u097F\s]/g;
@@ -290,15 +309,37 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
+      
+      // सर्व शाळा आणि वर्गशिक्षक डेटा जोडला आहे
       var teachersData = {
-        "जि.प.कें.प्रा.शाळा कन्या नागापूर": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
-        "जि.प.प्रा.शाळा बहाद्दरवाडी": ["श्रीमती बिटलेवार अश्विनी दिनकरराव"]
+        "SCH01": ["श्री.एस.एम.गंगणे", "श्री.बी.डी.राठोड"],
+        "SCH02": ["श्री ए बी गायकवाड", "श्रीमती आर बी आडगावकर"],
+        "SCH03": ["श्री पी टी काळे"],
+        "SCH04": ["श्री व्ही आर शिंदे"],
+        "SCH05": ["श्रीमती के एस देशपांडे"],
+        "SCH06": ["श्रीमती बिटलेवार अश्विनी दिनकरराव"]
       };
 
-      var r2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - सोपी वाक्ये वाचतो">A - सोपी वाक्ये वाचतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - विरामचिन्हे ओळखतो">B - विरामचिन्हे ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अक्षरे ओळखत नाही">C - अक्षरे ओळखत नाही</option></optgroup>';
-      var w2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वाक्ये लिहितो">A - वाक्ये लिहितो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - शब्द लिहितो">B - शब्द लिहितो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अक्षरे लिहितो">C - अक्षरे लिहितो</option></optgroup>';
-      var n2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वस्तू मोजतो">A - वस्तू मोजतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - संख्या ओळखतो">B - संख्या ओळखतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - अंक ओळखत नाही">C - अंक ओळखत नाही</option></optgroup>';
-      var o2 = '<option value="">-- क्षमता निवडा --</option><optgroup label="गट A (प्रगत)"><option value="A - वजाबाकी करतो">A - वजाबाकी करतो</option></optgroup><optgroup label="गट B (मध्यम)"><option value="B - बेरीज करतो">B - बेरीज करतो</option></optgroup><optgroup label="गट C (आरंभिक)"><option value="C - क्रिया करत नाही">C - क्रिया करत नाही</option></optgroup>';
+      // इयत्ता २ री क्षमता पर्याय
+      var r2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)"><option value="A - ५. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.">A - ५. परिचित मजकुरातील २-३ सोप्या शब्दांनी तयार झालेली लहान वाक्ये वाचतो.</option><option value="A - ११. सोपी वाक्ये धाराप्रवाह वाचतो.">A - ११. सोपी वाक्ये धाराप्रवाह वाचतो.</option></optgroup>' +
+        '<optgroup label="गट B (मध्यम)"><option value="B - ५. विरामचिन्हांची दखल घेतो.">B - ५. विरामचिन्हांची दखल घेतो.</option></optgroup>' +
+        '<optgroup label="गट C (आरंभिक)"><option value="C - १. अक्षरे ओळखत नाही.">C - १. अक्षरे ओळखत नाही.</option></optgroup>';
+
+      var w2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)"><option value="A - ४. श्रुतलेखन करताना वर्गपातळीवरील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.">A - ४. श्रुतलेखन करताना वर्गपातळीवरील सर्व अक्षरांच्या ध्वनीला ऐकून अक्षरे लिहितो.</option></optgroup>' +
+        '<optgroup label="गट B (मध्यम)"><option value="B - ५. शब्द लिहितो.">B - ५. शब्द लिहितो.</option></optgroup>' +
+        '<optgroup label="गट C (आरंभिक)"><option value="C - १. अक्षरे पाहून लिहितो.">C - १. अक्षरे पाहून लिहितो.</option></optgroup>';
+
+      var n2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)"><option value="A - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.">A - ८. १० ते २० पर्यंतच्या वस्तू मोजतो.</option></optgroup>' +
+        '<optgroup label="गट B (मध्यम)"><option value="B - ९. २० पर्यंतच्या वस्तूंच्या समुहातून ठराविक वस्तू काढून दाखवतो.">B - ९. २० पर्यंतच्या वस्तूंच्या समुहातून ठराविक वस्तू काढून दाखवतो.</option></optgroup>' +
+        '<optgroup label="गट C (आरंभिक)"><option value="C - १. संख्या ओळखत नाही.">C - १. संख्या ओळखत नाही.</option></optgroup>';
+
+      var o2 = '<option value="">-- क्षमता निवडा --</option>' +
+        '<optgroup label="गट A (प्रगत)"><option value="A - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवतो.">A - ५. ० ते ९ पर्यंतच्या संख्यांची मूर्त वस्तूंचा वापर करून बेरजेची उदाहरणे सोडवतो.</option></optgroup>' +
+        '<optgroup label="गट B (मध्यम)"><option value="B - ९. ० ते ९ पर्यंतच्या संख्यांची बेरीज करतो.">B - ९. ० ते ९ पर्यंतच्या संख्यांची बेरीज करतो.</option></optgroup>' +
+        '<optgroup label="गट C (आरंभिक)"><option value="C - १. क्रिया करत नाही.">C - १. क्रिया करत नाही.</option></optgroup>';
 
       function fillOptions(r, w, n, o) {
         document.getElementById('readingCompetency').innerHTML = r;
@@ -307,14 +348,18 @@
         document.getElementById('mathOpCompetency').innerHTML = o;
       }
 
+      // शाळा निवडल्यास शिक्षक अपडेट होणे
       document.getElementById('schoolName').addEventListener('change', function() {
-        var school = this.value;
+        var code = this.value;
+        var selectedText = this.options[this.selectedIndex].text;
         var tSelect = document.getElementById('teacherSelect');
-        document.getElementById('pSchool').innerText = school || '---';
-        if (school && teachersData[school]) {
+        
+        document.getElementById('pSchool').innerText = (code ? selectedText : '---');
+
+        if (code && teachersData[code]) {
           var opts = '<option value="">-- वर्गशिक्षक निवडा --</option>';
-          for (var i = 0; i < teachersData[school].length; i++) {
-            opts += '<option value="' + teachersData[school][i] + '">' + teachersData[school][i] + '</option>';
+          for (var i = 0; i < teachersData[code].length; i++) {
+            opts += '<option value="' + teachersData[code][i] + '">' + teachersData[code][i] + '</option>';
           }
           tSelect.innerHTML = opts;
         } else {
@@ -326,6 +371,7 @@
         document.getElementById('pTeacher').innerText = this.value || '---';
       });
 
+      // गोषवारा लाइव्ह अपडेट करणे
       function updateSummary() {
         var counts = { r: {A:0,B:0,C:0}, w: {A:0,B:0,C:0}, n: {A:0,B:0,C:0}, o: {A:0,B:0,C:0} };
 
@@ -342,6 +388,7 @@
         document.getElementById('o_A').innerText = counts.o.A; document.getElementById('o_B').innerText = counts.o.B; document.getElementById('o_C').innerText = counts.o.C; document.getElementById('o_Total').innerText = counts.o.A + counts.o.B + counts.o.C;
       }
 
+      // विद्यार्थी जतन करणे
       document.getElementById('addStudentBtn').addEventListener('click', function() {
         var name = document.getElementById('studentName').value.trim();
         var cls = document.getElementById('studentClassSelect').value;
